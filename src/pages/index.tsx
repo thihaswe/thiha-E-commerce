@@ -1,6 +1,4 @@
-import { Inter } from "next/font/google";
-
-import { Box, Typography } from "@mui/material";
+import { Box, FormControl, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
 import { useEffect, useState } from "react";
 import { getProduct } from "@/store/slices/homeSlice";
@@ -8,21 +6,31 @@ import { Product } from "@prisma/client";
 import Layout from "@/components/Layout";
 import ProdcutCart from "@/components/ProdcutCart";
 import Link from "next/link";
-
-const inter = Inter({ subsets: ["latin"] });
+import SearchProduct from "@/components/SearchProduct";
 
 export default function Home() {
   const dispatch = useAppDispatch();
 
   const products: Product[] = useAppSelector((store) => store.homeSlice.items);
 
-  // const [prodcut,setProduct] = useState<Product[]>([])
+  const [filteredProduct, setFilteredProduct] = useState<Product[]>([]);
+
   useEffect(() => {
     dispatch(getProduct());
   }, []);
 
+  useEffect(() => {
+    if (products.length > 0) {
+      setFilteredProduct(products);
+    }
+  }, [products]);
+
   return (
     <Layout label="home">
+      <SearchProduct
+        products={products}
+        setFilteredProduct={setFilteredProduct}
+      ></SearchProduct>
       <Box
         sx={{
           display: "flex",
@@ -31,7 +39,7 @@ export default function Home() {
           justifyContent: "center",
         }}
       >
-        {products.map((item) => {
+        {filteredProduct.map((item) => {
           return (
             <Box key={item.id}>
               <Link

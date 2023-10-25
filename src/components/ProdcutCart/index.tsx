@@ -5,7 +5,6 @@ interface Prop {
 }
 
 const ProdcutCart = ({ item }: Prop) => {
-  console.log(item);
   return (
     <Box>
       <Card>
@@ -19,6 +18,7 @@ const ProdcutCart = ({ item }: Prop) => {
           <Typography gutterBottom variant="body1" component="div">
             {item.title}
           </Typography>
+
           <Typography
             variant="h6"
             color="text.secondary"

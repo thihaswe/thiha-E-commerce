@@ -25,7 +25,12 @@ const ProductId = () => {
         src={currentProduct?.imageUrl || ""}
         alt="current product"
       />
-      <Typography variant="h5"> {currentProduct?.title}</Typography>
+      <Typography variant="h5" my={3}>
+        {currentProduct?.title}{" "}
+      </Typography>
+      <Typography variant="body1" my={5}>
+        {currentProduct?.description}
+      </Typography>
       <Typography variant="h5"> ${currentProduct?.price}</Typography>
       <Box marginTop={5} display={"flex"} justifyContent={"center"}>
         <Button

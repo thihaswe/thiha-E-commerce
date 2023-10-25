@@ -15,6 +15,7 @@ const Layout = ({ children, label }: Prop) => {
   const products = useAppSelector((store) => store.cartSlice.items);
   products.map((item) => (totalProduct += item.quantity));
   const { data: session } = useSession();
+
   if (!session) {
     return (
       <Box>
@@ -24,16 +25,17 @@ const Layout = ({ children, label }: Prop) => {
           justifyContent={"center"}
           flexDirection={"column"}
           sx={{
-            backgroundColor: "orange",
+            backgroundColor: "lightblue",
             height: "100vh",
             width: "100vw",
           }}
         >
-          <Typography variant="h1" color={"red"}>
-            YGN SHOOPING LOG IN
+          <Typography variant="h5" color={"red"} marginBottom={"50px"}>
+            YGN SHOOPING Log In Page
           </Typography>
           <Button
             variant="contained"
+            size="large"
             onClick={() => {
               signIn("google", { callbackUrl: "/" });
             }}
@@ -74,9 +76,7 @@ const Layout = ({ children, label }: Prop) => {
             </Badge>
           </Link>
         </Box>
-
-        <Box></Box>
-
+        <Box display={"flex"} justifyContent={"center"}></Box>
         {children}
       </Box>
     );

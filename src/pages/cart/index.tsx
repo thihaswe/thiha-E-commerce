@@ -1,8 +1,13 @@
 import Layout from "@/components/Layout";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
-import { createOrder } from "@/store/slices/cartSlice";
+import { addCart, createOrder, updateCart } from "@/store/slices/cartSlice";
 import { CartItem } from "@/types/cartSlicePage";
-import { PropaneOutlined } from "@mui/icons-material";
+import {
+  AddCircle,
+  PropaneOutlined,
+  QuestionMarkOutlined,
+  RemoveCircle,
+} from "@mui/icons-material";
 import { Box, Button, Typography } from "@mui/material";
 import Image from "next/image";
 import { Router, useRouter } from "next/router";
@@ -21,9 +26,28 @@ const Cart = () => {
 
   const handleCreateOrder = () => {
     dispatch(createOrder(products));
-    router.push("/");
+    router.push("/confirmation");
   };
 
+  const addOrRemoveItem = (id: number, quantity: number) => {
+    const itemUpdated = products.map((product) =>
+      product.id === id ? { ...product, quantity: quantity } : product
+    );
+    const itemFiltered = itemUpdated.filter(
+      (product) => product.quantity !== 0
+    );
+
+    console.log(itemFiltered);
+    dispatch(updateCart(itemFiltered));
+  };
+
+  if (products.length <= 0) {
+    return (
+      <>
+        <h1>nothing in the cart yet</h1>
+      </>
+    );
+  }
   return (
     <Layout label="Cart">
       <Box>
@@ -48,8 +72,19 @@ const Cart = () => {
               <Box sx={{ width: "250px" }}>
                 <Typography>{ele.title}</Typography>
               </Box>
+
               <Box sx={{ width: "50px" }}>
+                <Button
+                  onClick={() => addOrRemoveItem(ele.id, ele.quantity - 1)}
+                >
+                  <RemoveCircle></RemoveCircle>
+                </Button>
                 <Typography>{ele.quantity}</Typography>
+                <Button
+                  onClick={() => addOrRemoveItem(ele.id, ele.quantity + 1)}
+                >
+                  <AddCircle></AddCircle>
+                </Button>
               </Box>
               <Box sx={{ width: "150px" }}>
                 <Typography>${ele.price * ele.quantity}</Typography>

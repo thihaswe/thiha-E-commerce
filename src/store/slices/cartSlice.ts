@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { useAppSelector } from "../hook";
 import { store } from "..";
 import { config } from "@/utils/config";
+import { addOrder } from "./orderSlice";
 
 const initialState: CartInitialState = {
   items: [],
@@ -18,7 +19,8 @@ export const createOrder = createAsyncThunk(
       headers: { "content-type": "application/json" },
       body: JSON.stringify(payload),
     });
-    const data = response.json();
+    const data = await response.json();
+    thunkAPI.dispatch(addOrder(data));
   }
 );
 
@@ -42,8 +44,11 @@ const cartSlice = createSlice({
         state.items.push({ ...addedItem, quantity: 1 });
       }
     },
+    updateCart: (state, action) => {
+      state.items = action.payload;
+    },
   },
 });
 
-export const { addCart } = cartSlice.actions;
+export const { updateCart, addCart } = cartSlice.actions;
 export default cartSlice.reducer;

@@ -23,12 +23,12 @@ export default async function handler(
       ) as Product;
       return product?.price * item.quantity;
     };
-    let totalPrice = 0;
+    let totalPrice: number = 0;
     cartItem.forEach((item) => {
       const productPrice = getProductPriceWithQuantity(item);
       totalPrice += productPrice;
     });
-    console.log(totalPrice);
+    return res.status(200).send(totalPrice);
   }
 
   res.status(200).json({ name: "John Doe" });
