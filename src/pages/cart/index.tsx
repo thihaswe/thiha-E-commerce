@@ -37,7 +37,6 @@ const Cart = () => {
       (product) => product.quantity !== 0
     );
 
-    console.log(itemFiltered);
     dispatch(updateCart(itemFiltered));
   };
 

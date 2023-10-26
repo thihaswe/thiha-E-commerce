@@ -10,11 +10,10 @@ const ProductId = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const products = useAppSelector((store) => store.homeSlice.items);
-  console.log(products);
+
   const param = useRouter();
   const productId = Number(param.query.id);
   const currentProduct = products.find((item) => item.id === productId);
-  console.log(currentProduct);
 
   return (
     <Box display={"flex"} alignItems={"center"} flexDirection={"column"}>

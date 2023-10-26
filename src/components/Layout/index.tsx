@@ -30,9 +30,12 @@ const Layout = ({ children, label }: Prop) => {
             width: "100vw",
           }}
         >
-          <Typography variant="h5" color={"red"} marginBottom={"50px"}>
-            YGN SHOOPING Log In Page
-          </Typography>
+          <Box>
+            <Typography variant="h5" color={"red"} marginBottom={"50px"}>
+              YGN SHOOPING Log In Page
+            </Typography>
+          </Box>
+
           <Button
             variant="contained"
             size="large"
@@ -60,7 +63,9 @@ const Layout = ({ children, label }: Prop) => {
           }}
         >
           <Typography variant="h4">{label}</Typography>
-          <Typography variant="h3">YGN shopping</Typography>
+          <Link href={"/"} style={{ textDecoration: "none" }}>
+            <Typography variant="h3">YGN shopping</Typography>
+          </Link>
           <Button
             variant="contained"
             onClick={() => {
